@@ -30,3 +30,5 @@ const devConfig = {
 };
 
 module.exports = merge(commonConfig, devConfig);
+
+//- uses: shinyinc/action-aws-cli@v1.2
