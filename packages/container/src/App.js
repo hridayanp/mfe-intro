@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useState } from 'react';
 import Header from './components/Header';
 // import { useHistory } from 'react-router-dom';
 
@@ -12,13 +12,20 @@ const LazyAuthenticationApp = lazy(() =>
 );
 
 export default () => {
+  const [isSignedIn, setIsSignedIn] = useState(false);
+
   return (
     <BrowserRouter>
       <div>
-        <Header />
+        <Header
+          isSignedIn={isSignedIn}
+          onSignOut={() => setIsSignedIn(false)}
+        />
         <Suspense fallback={<Progress />}>
           <Switch>
-            <Route path="/auth" component={LazyAuthenticationApp} />
+            <Route path="/auth">
+              <LazyAuthenticationApp onSignIn={() => setIsSignedIn(true)} />
+            </Route>
             <Route path="/" component={LazyMarketingApp} />
           </Switch>
         </Suspense>
